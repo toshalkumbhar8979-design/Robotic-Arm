@@ -1,0 +1,25 @@
+services:
+  arm_ros:
+    image: arm_ros_image:v6
+    container_name: arm_ros
+    restart: "no"
+    ports:
+      - "5900:5900"   # VNC
+      - "6080:6080"   # noVNC (Gazebo GUI in browser)
+      - "8000:8000"   # web_dashboard (ROS stack dashboard)
+      - "8080:8080"   # web_video_server (camera streams)
+      - "9090:9090"   # rosbridge websocket
+      # NOTE: 8050 intentionally NOT mapped - the vision FastAPI dashboard
+      # backend runs on the Windows host on 8050; Docker's port proxy would
+      # block it.
+    volumes:
+      # Windows-style path: Docker Desktop converts /mnt/c/... inconsistently,
+      # but a native Windows path mounts reliably in containers.
+      - C:/Users/tosha/Downloads/Roboticarm:/project:ro
+      - /mnt/wslg:/mnt/wslg
+    environment:
+      - DISPLAY=:0
+      - WAYLAND_DISPLAY=wayland-0
+      - XDG_RUNTIME_DIR=/mnt/wslg/runtime-dir
+      - LIBGL_ALWAYS_SOFTWARE=1
+    command: sleep infinity

@@ -1,0 +1,39 @@
+# ROS 2 <-> Gazebo bridges for the BabyROS arm.
+# Usage: ros2 run ros_gz_bridge parameter_bridge --params-file <this file>
+/**:
+  ros__parameters:
+    clock:
+      ros_topic_name: /clock
+      gz_topic_name: /clock
+      direction: GZ_TO_ROS
+      type: gz.msgs.Clock
+
+    camera_table_image:
+      ros_topic_name: /camera_table/image_raw
+      gz_topic_name: /camera_table/image
+      direction: GZ_TO_ROS
+      type: gz.msgs.Image
+
+    camera_ee_image:
+      ros_topic_name: /camera_ee/image_raw
+      gz_topic_name: /camera_ee/image
+      direction: GZ_TO_ROS
+      type: gz.msgs.Image
+
+    camera_table_info:
+      ros_topic_name: /camera_table/camera_info
+      gz_topic_name: /camera_table/camera_info
+      direction: GZ_TO_ROS
+      type: gz.msgs.CameraInfo
+
+    camera_ee_info:
+      ros_topic_name: /camera_ee/camera_info
+      gz_topic_name: /camera_ee/camera_info
+      direction: GZ_TO_ROS
+      type: gz.msgs.CameraInfo
+
+    world_poses:
+      ros_topic_name: /world/arm_world/pose/info
+      gz_topic_name: /world/arm_world/pose/info
+      direction: GZ_TO_ROS
+      type: gz.msgs.Pose_V

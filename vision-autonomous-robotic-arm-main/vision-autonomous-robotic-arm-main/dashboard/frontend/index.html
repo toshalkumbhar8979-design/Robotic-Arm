@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Autonomous Robotic Arm — Control Dashboard</title>
+  
+  <!-- Non-generic distinctive Google Fonts (Decision #18) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Dashboard Stylesheet -->
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <div class="app-container">
+    
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <h1 class="sidebar-title">Robotic Arm</h1>
+        <div class="sidebar-subtitle">Control System</div>
+      </div>
+      
+      <ul class="nav-menu">
+        <li>
+          <a class="nav-item active" data-panel="panel-control">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+            <span>Servo Control</span>
+          </a>
+        </li>
+        <li>
+          <a class="nav-item" data-panel="panel-camera">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+            <span>Camera Feeds</span>
+          </a>
+        </li>
+        <li>
+          <a class="nav-item" data-panel="panel-perception">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+            <span>Perception</span>
+          </a>
+        </li>
+        <li>
+          <a class="nav-item" data-panel="panel-teleop">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+            <span>Teleoperation</span>
+          </a>
+        </li>
+        <li>
+          <a class="nav-item" data-panel="panel-dataset">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path><path d="M21 19c0 1.66-4 3-9 3s-9-1.34-9-3"></path></svg>
+            <span>Dataset</span>
+          </a>
+        </li>
+        <li>
+          <a class="nav-item" data-panel="panel-autonomous">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+            <span>Autonomous Mode</span>
+          </a>
+        </li>
+        <li>
+          <a class="nav-item" data-panel="panel-digital-twin">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+            <span>Digital Twin</span>
+          </a>
+        </li>
+        <li>
+          <a class="nav-item" data-panel="panel-journal">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+            <span>Journal</span>
+          </a>
+        </li>
+      </ul>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="main-wrapper">
+      
+      <!-- Top Header -->
+      <header class="top-header">
+        <h2 class="header-title" id="page-title">Robot Servo Control & Assembly Helper</h2>
+        
+        <div class="header-status-group">
+          <!-- Connection Status Pill -->
+          <div class="status-pill" id="statusPill">
+            <span class="status-dot"></span>
+            <span id="statusText">Offline / Disconnected</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- Panel 1: Servo Control & Assembly Helper -->
+      <main class="content-panel active" id="panel-control">
+        
+        <!-- Assembly Assistant Helper Banner (Decision #19) -->
+        <div class="assembly-banner">
+          <strong>Physical Assembly Assistant:</strong> Use the <strong>"Lock All at 90°"</strong> button below to lock all motors while mounting 3D-printed arm parts. After attaching each joint, drag its slider to test mechanical limits and verify there are no plastic collisions.
+        </div>
+
+        <!-- Quick Action Toolbar -->
+        <div class="action-toolbar">
+          <button class="btn btn-primary" id="btnLock90">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+            Lock All at 90° (Assembly Mode)
+          </button>
+          
+          <button class="btn btn-secondary" id="btnHome">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+            Move to Home Position
+          </button>
+
+          <button class="btn btn-secondary" id="btnSweep">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"></path></svg>
+            Run Joint Sweep Test
+          </button>
+
+          <button class="btn btn-secondary" id="btnAutoConnect">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="M12 5l7 7-7 7"></path></svg>
+            Auto-Detect Arduino
+          </button>
+        </div>
+
+        <div class="dashboard-grid">
+          
+          <!-- Left Column: Servo Sliders -->
+          <div class="card" style="grid-column: span 8;">
+            <h3 class="card-title">6-DOF Joint Angles</h3>
+            <p class="card-subtitle">Real-time 6-byte binary packet streaming (115200 Baud, ~30Hz target)</p>
+
+            <div class="servo-grid">
+              
+              <!-- Servo 0: Base -->
+              <div class="servo-card">
+                <div class="servo-header">
+                  <div>
+                    <div style="display: flex; align-items: center;">
+                      <div class="servo-label">Base Joint (Ch 0)</div>
+                      <button class="btn btn-secondary" style="font-size: 0.7rem; padding: 2px 8px; margin-left: 8px;" onclick="ServoPanel.testServo(0)">Test Solo</button>
+                    </div>
+                    <div class="servo-meta">MG996R • PCA9685 #0</div>
+                  </div>
+                  <div class="servo-value-display" id="valServo0">90°</div>
+                </div>
+                <div class="servo-slider-wrapper">
+                  <input type="range" id="sliderServo0" min="0" max="180" value="90">
+                </div>
+              </div>
+
+              <!-- Servo 1: Shoulder -->
+              <div class="servo-card">
+                <div class="servo-header">
+                  <div>
+                    <div style="display: flex; align-items: center;">
+                      <div class="servo-label">Shoulder Joint (Ch 1)</div>
+                      <button class="btn btn-secondary" style="font-size: 0.7rem; padding: 2px 8px; margin-left: 8px;" onclick="ServoPanel.testServo(1)">Test Solo</button>
+                    </div>
+                    <div class="servo-meta">MG996R • PCA9685 #1</div>
+                  </div>
+                  <div class="servo-value-display" id="valServo1">90°</div>
+                </div>
+                <div class="servo-slider-wrapper">
+                  <input type="range" id="sliderServo1" min="0" max="180" value="90">
+                </div>
+              </div>
+
+              <!-- Servo 2: Elbow -->
+              <div class="servo-card">
+                <div class="servo-header">
+                  <div>
+                    <div style="display: flex; align-items: center;">
+                      <div class="servo-label">Elbow Joint (Ch 2)</div>
+                      <button class="btn btn-secondary" style="font-size: 0.7rem; padding: 2px 8px; margin-left: 8px;" onclick="ServoPanel.testServo(2)">Test Solo</button>
+                    </div>
+                    <div class="servo-meta">MG996R • PCA9685 #2</div>
+                  </div>
+                  <div class="servo-value-display" id="valServo2">90°</div>
+                </div>
+                <div class="servo-slider-wrapper">
+                  <input type="range" id="sliderServo2" min="0" max="180" value="90">
+                </div>
+              </div>
+
+              <!-- Servo 3: Wrist Pitch -->
+              <div class="servo-card">
+                <div class="servo-header">
+                  <div>
+                    <div style="display: flex; align-items: center;">
+                      <div class="servo-label">Wrist Pitch (Ch 3)</div>
+                      <button class="btn btn-secondary" style="font-size: 0.7rem; padding: 2px 8px; margin-left: 8px;" onclick="ServoPanel.testServo(3)">Test Solo</button>
+                    </div>
+                    <div class="servo-meta">MG90S • PCA9685 #3</div>
+                  </div>
+                  <div class="servo-value-display" id="valServo3">90°</div>
+                </div>
+                <div class="servo-slider-wrapper">
+                  <input type="range" id="sliderServo3" min="0" max="180" value="90">
+                </div>
+              </div>
+
+              <!-- Servo 4: Wrist Roll -->
+              <div class="servo-card">
+                <div class="servo-header">
+                  <div>
+                    <div style="display: flex; align-items: center;">
+                      <div class="servo-label">Wrist Roll (Ch 4)</div>
+                      <button class="btn btn-secondary" style="font-size: 0.7rem; padding: 2px 8px; margin-left: 8px;" onclick="ServoPanel.testServo(4)">Test Solo</button>
+                    </div>
+                    <div class="servo-meta">MG90S • PCA9685 #4</div>
+                  </div>
+                  <div class="servo-value-display" id="valServo4">90°</div>
+                </div>
+                <div class="servo-slider-wrapper">
+                  <input type="range" id="sliderServo4" min="0" max="180" value="90">
+                </div>
+              </div>
+
+              <!-- Servo 5: Gripper -->
+              <div class="servo-card">
+                <div class="servo-header">
+                  <div>
+                    <div style="display: flex; align-items: center;">
+                      <div class="servo-label">Gripper Claw (Ch 5)</div>
+                      <button class="btn btn-secondary" style="font-size: 0.7rem; padding: 2px 8px; margin-left: 8px;" onclick="ServoPanel.testServo(5)">Test Solo</button>
+                    </div>
+                    <div class="servo-meta">MG90S • PCA9685 #5</div>
+                  </div>
+                  <div class="servo-value-display" id="valServo5">10°</div>
+                </div>
+                <div class="servo-slider-wrapper">
+                  <input type="range" id="sliderServo5" min="0" max="180" value="10">
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Right Column: Safety & Connection Control -->
+          <div class="card" style="grid-column: span 4;">
+            
+            <!-- Emergency Stop Section -->
+            <h3 class="card-title" style="color: var(--accent-danger);">Safety Control</h3>
+            <p class="card-subtitle">Cuts software commands & forces home trajectory (Decision #5)</p>
+            
+            <button class="btn-estop-large" id="btnEstop">
+              EMERGENCY STOP
+            </button>
+            <button class="btn btn-secondary" id="btnResetEstop" style="width: 100%; margin-top: 10px; display: none;">
+              Reset Emergency Stop
+            </button>
+
+            <!-- Serial Connection Controls -->
+            <h3 class="card-title" style="margin-top: 28px;">Serial Connection</h3>
+            <p class="card-subtitle">Arduino CLI board list detection (Decision #15)</p>
+            
+            <div id="cliStatusBadge" style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-muted); background: var(--bg-page); border: 1px solid var(--border-subtle); padding: 6px 10px; border-radius: 6px; margin-bottom: 12px;">
+              Arduino CLI: Checking...
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 10px;">
+              <select id="portSelect" class="btn btn-secondary" style="width: 100%; text-align: left; background: var(--bg-page);">
+                <option value="">Scanning for ports...</option>
+              </select>
+              
+              <div style="display: flex; gap: 8px;">
+                <button class="btn btn-primary" id="btnConnect" style="flex: 1;">Connect</button>
+                <button class="btn btn-secondary" id="btnDisconnect" style="flex: 1;">Disconnect</button>
+              </div>
+            </div>
+
+            <!-- Activity Log -->
+            <h3 class="card-title" style="margin-top: 28px;">Activity Log</h3>
+            <div class="log-box" id="logBox">
+              <div class="log-entry"><span class="log-time">[Init]</span> Dashboard ready. WebSocket standing by.</div>
+            </div>
+
+      </main>
+
+      <!-- Panel: 3D Digital Twin Simulation (Baby ROS / URDF Integration) -->
+      <main class="content-panel" id="panel-digital-twin">
+
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; flex-wrap: wrap; gap: 12px;">
+          <div>
+            <h3 class="card-title">Digital Twin — Live Gazebo Sim (ROS 2 / Gazebo)</h3>
+            <p class="card-subtitle">Actual Gazebo GUI stream + interactive 3D URDF twin synced to the simulator in real time.</p>
+          </div>
+          <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+            <div class="status-pill" id="dtRosPill">
+              <span class="status-dot"></span>
+              <span>ROS Bridge: Connecting...</span>
+            </div>
+            <div class="status-pill" id="dtStreamPill">
+              <span class="status-dot"></span>
+              <span>Gazebo Stream: Checking...</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- View Mode Tabs -->
+        <div style="display: flex; gap: 10px; margin-bottom: 20px;">
+          <button class="btn btn-primary" id="dtTabGazebo" style="font-size: 0.85rem;">Gazebo GUI (noVNC)</button>
+          <button class="btn btn-secondary" id="dtTabTwin" style="font-size: 0.85rem;">3D Digital Twin (URDF)</button>
+        </div>
+
+        <div class="dashboard-grid">
+
+          <!-- Gazebo GUI Stream Card (noVNC) -->
+          <div class="card" id="dtGazeboCard" style="grid-column: span 12;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
+              <span style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-muted);">Raw Gazebo Window — fully interactable (orbit, zoom, play/pause, insert models)</span>
+              <button class="btn btn-secondary" style="font-size: 0.75rem; padding: 4px 10px;" id="dtOpenStream">Open in New Tab ↗</button>
+            </div>
+            <div style="width: 100%; height: 560px; background: #1A1817; border-radius: 8px; border: 1px solid var(--border-card); overflow: hidden; position: relative;">
+              <iframe id="gazeboVncFrame"
+                src="http://localhost:6080/vnc.html?autoconnect=1&resize=scale&reconnect=1"
+                style="width: 100%; height: 100%; border: none;" allow="fullscreen"></iframe>
+            </div>
+            <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 10px;">
+              Stream offline? Start it with <code style="font-family: var(--font-mono); background: var(--bg-page); padding: 2px 6px; border-radius: 4px;">bash scripts/stream_gazebo_gui.sh start</code> and relaunch the sim with
+              <code style="font-family: var(--font-mono); background: var(--bg-page); padding: 2px 6px; border-radius: 4px;">ros2 launch arm_bringup arm_full.launch.py stream_gui:=true</code>
+              then the window appears here.
+            </p>
+          </div>
+
+          <!-- 3D URDF Twin Card -->
+          <div class="card" id="dtTwinCard" style="grid-column: span 12; display: none;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
+              <span style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-muted);">3D URDF Twin (Orbit: Drag to rotate • Scroll to zoom • Right-drag to pan)</span>
+              <div style="display: flex; gap: 8px;">
+                <button class="btn btn-secondary" style="font-size: 0.75rem; padding: 4px 10px;" id="dtResetCamera">Reset Camera</button>
+                <button class="btn btn-secondary" style="font-size: 0.75rem; padding: 4px 10px;" id="dtToggleGrid">Toggle Grid</button>
+              </div>
+            </div>
+
+            <div id="digitalTwinViewport" style="width: 100%; height: 500px; background: #2A2624; border-radius: 8px; border: 1px solid var(--border-card); position: relative; overflow: hidden;">
+
+              <!-- Live Joint Telemetry Overlay Bar (Bottom Left of 3D Viewport) -->
+              <div style="position: absolute; bottom: 16px; left: 16px; z-index: 3; background: rgba(26, 24, 23, 0.85); border: 1px solid rgba(224, 214, 200, 0.2); padding: 10px 16px; border-radius: 8px; font-family: var(--font-mono); font-size: 0.75rem; color: #FAF7F2; display: flex; gap: 16px; flex-wrap: wrap;">
+                <div>θ1: <span id="dtVal0" style="color: var(--accent-primary);">0°</span></div>
+                <div>θ2: <span id="dtVal1" style="color: var(--accent-primary);">0°</span></div>
+                <div>θ3: <span id="dtVal2" style="color: var(--accent-primary);">0°</span></div>
+                <div>θ4: <span id="dtVal3" style="color: var(--accent-primary);">0°</span></div>
+                <div>θ5: <span id="dtVal4" style="color: var(--accent-primary);">0°</span></div>
+                <div>Claw: <span id="dtVal5" style="color: var(--accent-primary);">0%</span></div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Joint Control Sliders -->
+          <div class="card" style="grid-column: span 4;">
+            <h3 class="card-title">Joint Control (Simulator)</h3>
+            <p class="card-subtitle">Jog individual joints — publishes JointTrajectory goals to Gazebo.</p>
+            <div id="dtJointSliders" style="display: flex; flex-direction: column; gap: 12px;"></div>
+          </div>
+
+          <!-- Gripper + Pick -->
+          <div class="card" style="grid-column: span 4;">
+            <h3 class="card-title">Gripper & Pick-and-Place</h3>
+            <p class="card-subtitle">Drive the finger controller and trigger autonomous picking.</p>
+
+            <div style="display: flex; gap: 8px; margin-bottom: 14px;">
+              <button class="btn btn-primary" id="dtGripperOpen" style="flex: 1;">Open Gripper</button>
+              <button class="btn btn-secondary" id="dtGripperClose" style="flex: 1;">Close Gripper</button>
+            </div>
+
+            <label style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-muted);">Gripper Position (0 = open, 1 = closed)</label>
+            <div class="servo-slider-wrapper" style="margin-top: 4px;">
+              <input type="range" id="dtGripperSlider" min="0" max="100" value="0" step="1">
+              <span class="servo-value-display" id="dtGripperVal" style="font-size: 1rem; min-width: 64px;">0%</span>
+            </div>
+
+            <div style="margin-top: 20px; padding-top: 16px; border-top: 1px dashed var(--border-card);">
+              <button class="btn btn-primary" id="dtPickBtn" style="width: 100%;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v8m0 0l-4-4m4 4l4-4M5 16h14a2 2 0 0 1 2 2v0a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v0a2 2 0 0 1 2-2z"/></svg>
+                Start Pick & Place
+              </button>
+              <div id="dtPickStatus" style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-muted); margin-top: 10px; text-align: center;">—</div>
+            </div>
+          </div>
+
+          <!-- Camera Feeds -->
+          <div class="card" style="grid-column: span 4;">
+            <h3 class="card-title">Gazebo Camera Feeds</h3>
+            <p class="card-subtitle">Live from web_video_server (:8080) — table & end-effector cams.</p>
+            <div style="display: flex; flex-direction: column; gap: 14px;">
+              <figure style="margin: 0;">
+                <img id="dtCamTable" alt="table camera" style="width: 100%; border-radius: 8px; border: 1px solid var(--border-card); background: #1A1817; display: block;">
+                <figcaption style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-muted); margin-top: 4px;">Table Camera <code>/camera_table/image_raw</code></figcaption>
+              </figure>
+              <figure style="margin: 0;">
+                <img id="dtCamEe" alt="end-effector camera" style="width: 100%; border-radius: 8px; border: 1px solid var(--border-card); background: #1A1817; display: block;">
+                <figcaption style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-muted); margin-top: 4px;">End-Effector Camera <code>/camera_ee/image_raw</code></figcaption>
+              </figure>
+            </div>
+          </div>
+
+          <!-- Gamepad Bridge -->
+          <div class="card" style="grid-column: span 12; border-left: 4px solid var(--accent-primary);">
+            <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 12px;">
+              <div>
+                <h3 class="card-title">Browser Gamepad → ROS Bridge (PS5 / Xbox / F710)</h3>
+                <p class="card-subtitle">Publishes your connected gamepad to <code style="font-family: var(--font-mono);">/joy</code> over rosbridge — no WSL usbipd passthrough needed. Use with <code style="font-family: var(--font-mono);">use_native_joy:=false</code>.</p>
+              </div>
+              <button class="btn btn-secondary" id="dtGamepadToggle" style="font-family: var(--font-mono);">Bridge: OFF</button>
+            </div>
+            <div style="display: flex; gap: 24px; flex-wrap: wrap; font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-muted);">
+              <div>Controller: <span id="dtGamepadName" style="color: var(--text-main);">—</span></div>
+              <div>Detected Layout: <span id="dtGamepadProfile" style="color: var(--accent-primary);">—</span></div>
+              <div>Axes: <span id="dtGamepadAxes">—</span> · Buttons: <span id="dtGamepadButtons">—</span></div>
+            </div>
+            <div style="margin-top: 14px; padding: 12px 16px; background: var(--bg-page); border: 1px solid var(--border-card); border-radius: 8px; font-size: 0.8rem; color: var(--text-muted); line-height: 1.7;">
+              <strong style="color: var(--text-main);">Common layout (auto-detected):</strong><br>
+              Cross/A · Circle/B · Square/X · Triangle/Y → jog joint_1 &amp; joint_2 &nbsp;•&nbsp; L1/LB · R1/RB → joint_3 &nbsp;•&nbsp; D-Pad → joint_4 &amp; joint_5 &nbsp;•&nbsp; L2/LT · R2/RT → proportional gripper &nbsp;•&nbsp; Share/Back · Options/Start → gripper open/close &nbsp;•&nbsp; Hold L1/LB + left stick → end-effector move (teleop_twist_joy)
+            </div>
+          </div>
+
+          <!-- Bottom Card: Digital Twin Architecture Notes -->
+          <div class="card" style="grid-column: span 12; border-left: 4px solid var(--accent-primary);">
+            <h3 class="card-title">Digital Twin & Simulation Pipeline</h3>
+            <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; margin-top: 8px;">
+              <strong>How the Digital Twin Synchronizes:</strong><br>
+              1. <strong>Live Gazebo GUI:</strong> the real Gazebo window is rendered into Xvfb and streamed via x11vnc + noVNC (port 6080) — orbit, zoom and interact directly with the simulated world.<br>
+              2. <strong>Three.js URDF Twin:</strong> <code style="font-family: var(--font-mono);">/robot_description</code> is loaded with urdf-loader and driven by live <code style="font-family: var(--font-mono);">/joint_states</code> from Gazebo (rosbridge :9090).<br>
+              3. <strong>Bi-Directional Control:</strong> joint sliders, gripper and pick buttons publish trajectory goals back into the simulator; gamepad input can be bridged from the browser to <code style="font-family: var(--font-mono);">/joy</code> for PS5/Xbox/F710 teleop.<br>
+              4. <strong>Safe Motion Validation:</strong> the twin can preview trajectories in simulation before executing on the physical arm.
+            </p>
+          </div>
+
+        </div>
+      </main>
+
+      <!-- Panel: Interactive Project Journal App -->
+      <main class="content-panel" id="panel-journal">
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px;">
+          <div>
+            <h3 class="card-title">Engineering Project Journal & Log Archive</h3>
+            <p class="card-subtitle">Live interactive journal app with real-time search, file attachments, and session history.</p>
+          </div>
+          <a href="https://vision-autonomous-robotic-arm.vercel.app" target="_blank" class="btn btn-secondary" style="font-size: 0.8rem;">Open App in New Tab ↗</a>
+        </div>
+
+        <div class="card" style="padding: 0; overflow: hidden; height: calc(100vh - 170px); min-height: 650px;">
+          <iframe src="https://vision-autonomous-robotic-arm.vercel.app" style="width: 100%; height: 100%; border: none; border-radius: 12px;"></iframe>
+        </div>
+      </main>
+
+      <!-- Placeholders for future Phase B, C, D panels -->
+      <main class="content-panel" id="panel-camera">
+        <div class="card">
+          <h3 class="card-title">Camera Feeds (Phase B)</h3>
+          <p class="card-subtitle">Will display live streams from Top (Camera 1) and Side (Camera 2) once cameras are attached.</p>
+        </div>
+      </main>
+
+      <main class="content-panel" id="panel-perception">
+        <div class="card">
+          <h3 class="card-title">OpenCV Perception (Phase B)</h3>
+          <p class="card-subtitle">Will show real-time ArUco pose estimation and real-world coordinate mapping.</p>
+        </div>
+      </main>
+
+      <main class="content-panel" id="panel-teleop">
+        
+        <!-- Status Pill -->
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px;">
+          <div>
+            <h3 class="card-title">Gamepad Controller Live Tester (PS5 DualSense / Xbox / F710)</h3>
+            <p class="card-subtitle">Connect a PS5, Xbox or F710 controller via Bluetooth or USB and press any button to begin testing.</p>
+          </div>
+          <div class="status-pill" id="ps5StatusPill">
+            <span class="status-dot"></span>
+            <span id="ps5StatusText">Press any button on the gamepad...</span>
+          </div>
+        </div>
+
+        <div class="dashboard-grid">
+          
+          <!-- Analog Joysticks -->
+          <div class="card" style="grid-column: span 6;">
+            <h3 class="card-title">Analog Joysticks</h3>
+            <p class="card-subtitle">Left Stick (X/Y workspace navigation) • Right Stick (Wrist Pitch/Roll)</p>
+            
+            <div style="display: flex; gap: 32px; justify-content: center; margin-top: 16px;">
+              
+              <!-- Left Stick -->
+              <div style="text-align: center;">
+                <div style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-muted); margin-bottom: 8px;">Left Stick (X / Y)</div>
+                <div style="width: 130px; height: 130px; background: var(--bg-page); border: 2px solid var(--border-card); border-radius: 50%; position: relative; margin: 0 auto;">
+                  <div style="position: absolute; width: 1px; height: 100%; left: 50%; background: var(--border-card);"></div>
+                  <div style="position: absolute; height: 1px; width: 100%; top: 50%; background: var(--border-card);"></div>
+                  <div id="ps5LeftDot" style="width: 18px; height: 18px; background: var(--accent-primary); border-radius: 50%; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); transition: all 0.05s linear; box-shadow: 0 2px 8px rgba(196,120,74,0.3);"></div>
+                </div>
+                <div id="ps5LeftVal" style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-muted); margin-top: 8px;">X: 0.00 Y: 0.00</div>
+              </div>
+
+              <!-- Right Stick -->
+              <div style="text-align: center;">
+                <div style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-muted); margin-bottom: 8px;">Right Stick (Pitch / Roll)</div>
+                <div style="width: 130px; height: 130px; background: var(--bg-page); border: 2px solid var(--border-card); border-radius: 50%; position: relative; margin: 0 auto;">
+                  <div style="position: absolute; width: 1px; height: 100%; left: 50%; background: var(--border-card);"></div>
+                  <div style="position: absolute; height: 1px; width: 100%; top: 50%; background: var(--border-card);"></div>
+                  <div id="ps5RightDot" style="width: 18px; height: 18px; background: var(--accent-primary); border-radius: 50%; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); transition: all 0.05s linear; box-shadow: 0 2px 8px rgba(196,120,74,0.3);"></div>
+                </div>
+                <div id="ps5RightVal" style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-muted); margin-top: 8px;">X: 0.00 Y: 0.00</div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Triggers & Bumpers -->
+          <div class="card" style="grid-column: span 6;">
+            <h3 class="card-title">Triggers & Bumpers</h3>
+            <p class="card-subtitle">L2/R2 Analog Triggers (Z-height control) • L1/R1 Bumpers (Gripper Claw)</p>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 16px;">
+              <div>
+                <div style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-muted); margin-bottom: 4px;">L2 Trigger</div>
+                <div style="height: 14px; background: var(--bg-page); border: 1px solid var(--border-card); border-radius: 6px; overflow: hidden;">
+                  <div id="ps5L2Fill" style="height: 100%; background: var(--accent-primary); width: 0%;"></div>
+                </div>
+                <div id="ps5L2Val" style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-muted); margin-top: 2px;">0%</div>
+              </div>
+
+              <div>
+                <div style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-muted); margin-bottom: 4px;">R2 Trigger</div>
+                <div style="height: 14px; background: var(--bg-page); border: 1px solid var(--border-card); border-radius: 6px; overflow: hidden;">
+                  <div id="ps5R2Fill" style="height: 100%; background: var(--accent-primary); width: 0%;"></div>
+                </div>
+                <div id="ps5R2Val" style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-muted); margin-top: 2px;">0%</div>
+              </div>
+
+              <div>
+                <div style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-muted); margin-bottom: 4px;">L1 Bumper</div>
+                <div style="height: 14px; background: var(--bg-page); border: 1px solid var(--border-card); border-radius: 6px; overflow: hidden;">
+                  <div id="ps5L1Fill" style="height: 100%; background: var(--accent-primary); width: 0%;"></div>
+                </div>
+                <div id="ps5L1Val" style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-muted); margin-top: 2px;">0%</div>
+              </div>
+
+              <div>
+                <div style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-muted); margin-bottom: 4px;">R1 Bumper</div>
+                <div style="height: 14px; background: var(--bg-page); border: 1px solid var(--border-card); border-radius: 6px; overflow: hidden;">
+                  <div id="ps5R1Fill" style="height: 100%; background: var(--accent-primary); width: 0%;"></div>
+                </div>
+                <div id="ps5R1Val" style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-muted); margin-top: 2px;">0%</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Buttons Grid -->
+          <div class="card" style="grid-column: span 8;">
+            <h3 class="card-title">Digital Buttons & D-Pad</h3>
+            <div id="ps5ButtonsGrid" style="display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; margin-top: 12px;"></div>
+          </div>
+
+          <!-- Raw Axes -->
+          <div class="card" style="grid-column: span 4;">
+            <h3 class="card-title">Raw Analog Axes</h3>
+            <div id="ps5AxesList" style="margin-top: 12px;"></div>
+          </div>
+
+          <!-- Inverse Kinematics Pipeline Integration Note -->
+          <div class="card" style="grid-column: span 12; border-left: 4px solid var(--accent-primary);">
+            <h3 class="card-title">Cartesian Inverse Kinematics (IK) Teleoperation Architecture (Phase C)</h3>
+            <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; margin-top: 8px;">
+              <strong>How Teleoperation Demonstration Collection Will Work:</strong><br>
+              1. <strong>Left Stick (X / Y):</strong> Moves the end-effector in Cartesian table space (centimeters relative to base).<br>
+              2. <strong>R2 / L2 Triggers:</strong> Controls end-effector Z-height (raise / lower arm towards table).<br>
+              3. <strong>Right Stick & R1/L1:</strong> Controls Wrist Pitch/Roll orientation and Gripper open/close state.<br>
+              4. <strong>Python IK Engine (`ik_solver.py`):</strong> Receives the target $(X, Y, Z, \theta_{pitch}, \theta_{roll})$ from the PS5 controller, calculates exact joint angles $(\theta_1, \theta_2, \theta_3, \theta_4, \theta_5, \theta_6)$, and streams them at 30Hz to the Arduino.<br>
+              <em>This Cartesian control pipeline ensures human operators record smooth, high-quality trajectories for imitation learning.</em>
+            </p>
+          </div>
+
+          <!-- Kinematic Calibration & Physical Parameters Card (Decision #21) -->
+          <div class="card" style="grid-column: span 12; border-top: 3px solid var(--accent-primary);">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px;">
+              <div>
+                <h3 class="card-title">Arm Kinematic Calibration & Fine-Tuning</h3>
+                <p class="card-subtitle">Fine-tune physical link measurements (L1–L4), servo horn offsets, and gripper angles post-assembly.</p>
+              </div>
+              <button class="btn btn-primary" id="btnSaveKinematics">
+                Save Calibration
+              </button>
+            </div>
+
+            <!-- Link Lengths (L1 - L4) -->
+            <div style="margin-top: 16px;">
+              <h4 style="font-family: var(--font-heading); font-size: 1rem; color: var(--text-main); margin-bottom: 12px;">1. Physical Link Measurements (Centimeters)</h4>
+              <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;">
+                
+                <div>
+                  <label style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-muted);">Base Height (L1)</label>
+                  <input type="number" id="inputL1" step="0.1" value="10.0" class="btn btn-secondary" style="width: 100%; text-align: center; margin-top: 4px; background: var(--bg-page);">
+                  <span style="font-size: 0.7rem; color: var(--text-muted); display: block; margin-top: 4px;">Base → Shoulder Axis</span>
+                </div>
+
+                <div>
+                  <label style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-muted);">Upper Arm (L2)</label>
+                  <input type="number" id="inputL2" step="0.1" value="14.0" class="btn btn-secondary" style="width: 100%; text-align: center; margin-top: 4px; background: var(--bg-page);">
+                  <span style="font-size: 0.7rem; color: var(--text-muted); display: block; margin-top: 4px;">Shoulder → Elbow Axis</span>
+                </div>
+
+                <div>
+                  <label style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-muted);">Forearm (L3)</label>
+                  <input type="number" id="inputL3" step="0.1" value="12.0" class="btn btn-secondary" style="width: 100%; text-align: center; margin-top: 4px; background: var(--bg-page);">
+                  <span style="font-size: 0.7rem; color: var(--text-muted); display: block; margin-top: 4px;">Elbow → Wrist Axis</span>
+                </div>
+
+                <div>
+                  <label style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-muted);">End-Effector (L4)</label>
+                  <input type="number" id="inputL4" step="0.1" value="8.0" class="btn btn-secondary" style="width: 100%; text-align: center; margin-top: 4px; background: var(--bg-page);">
+                  <span style="font-size: 0.7rem; color: var(--text-muted); display: block; margin-top: 4px;">Wrist → Gripper Tip</span>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- Servo Zero Offsets & Gripper Calibration -->
+            <div style="margin-top: 20px; padding-top: 16px; border-top: 1px dashed var(--border-card);">
+              <h4 style="font-family: var(--font-heading); font-size: 1rem; color: var(--text-main); margin-bottom: 12px;">2. Servo Horn Offsets & Gripper Calibration (Degrees)</h4>
+              
+              <div style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 10px;">
+                <div>
+                  <label style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-muted);">Base (Δθ1)</label>
+                  <input type="number" id="offsetServo0" step="1" value="0" class="btn btn-secondary" style="width: 100%; text-align: center; margin-top: 4px; background: var(--bg-page);">
+                </div>
+                <div>
+                  <label style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-muted);">Shoulder (Δθ2)</label>
+                  <input type="number" id="offsetServo1" step="1" value="0" class="btn btn-secondary" style="width: 100%; text-align: center; margin-top: 4px; background: var(--bg-page);">
+                </div>
+                <div>
+                  <label style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-muted);">Elbow (Δθ3)</label>
+                  <input type="number" id="offsetServo2" step="1" value="0" class="btn btn-secondary" style="width: 100%; text-align: center; margin-top: 4px; background: var(--bg-page);">
+                </div>
+                <div>
+                  <label style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-muted);">Wrist P. (Δθ4)</label>
+                  <input type="number" id="offsetServo3" step="1" value="0" class="btn btn-secondary" style="width: 100%; text-align: center; margin-top: 4px; background: var(--bg-page);">
+                </div>
+                <div>
+                  <label style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-muted);">Wrist R. (Δθ5)</label>
+                  <input type="number" id="offsetServo4" step="1" value="0" class="btn btn-secondary" style="width: 100%; text-align: center; margin-top: 4px; background: var(--bg-page);">
+                </div>
+                <div>
+                  <label style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-muted);">Gripper Close</label>
+                  <input type="number" id="angleGripperClosed" step="1" value="10" class="btn btn-secondary" style="width: 100%; text-align: center; margin-top: 4px; background: var(--bg-page);">
+                </div>
+                <div>
+                  <label style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-muted);">Gripper Open</label>
+                  <input type="number" id="angleGripperOpen" step="1" value="90" class="btn btn-secondary" style="width: 100%; text-align: center; margin-top: 4px; background: var(--bg-page);">
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </main>
+
+      <main class="content-panel" id="panel-dataset">
+        <div class="card">
+          <h3 class="card-title">Dataset Management (Phase C)</h3>
+          <p class="card-subtitle">Will manage recorded demonstration episodes and trajectory replays.</p>
+        </div>
+      </main>
+
+      <main class="content-panel" id="panel-autonomous">
+        <div class="card">
+          <h3 class="card-title">Autonomous Execution (Phase D)</h3>
+          <p class="card-subtitle">Will control model loading, inference execution, and accuracy tracking on RPi5.</p>
+        </div>
+      </main>
+
+    </div>
+  </div>
+
+  <!-- Dashboard JavaScript -->
+  <script src="js/app.js"></script>
+  <script src="js/servo_panel.js"></script>
+  <script src="js/teleop_panel.js"></script>
+
+  <!-- Digital Twin panel: Three.js + urdf-loader + roslib (ES modules) -->
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+      "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/",
+      "urdf-loader": "https://unpkg.com/urdf-loader@0.12.0/dist/urdf-loader.js",
+      "roslib": "https://unpkg.com/roslib@1.3.0/build/roslib.js"
+    }
+  }
+  </script>
+  <script type="module" src="js/digital_twin.js"></script>
+</body>
+</html>

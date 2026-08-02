@@ -1,0 +1,63 @@
+# arm_pick configuration. All parameters are runtime-switchable.
+arm_pick:
+  ros__parameters:
+    # "ground_truth" reads block poses from Gazebo via
+    # /world/arm_world/pose/info (PoseArray). "vision" detects the colored
+    # blocks in /camera_table/image_raw with OpenCV.
+    localization_mode: ground_truth
+    use_sim_time: true
+
+    # Table height (world z of the table top surface), meters
+    table_height: 0.75
+
+    # Block physical size, meters
+    block_size: 0.02
+
+    # Approach offset above the block along -tool z, meters
+    approach_offset: 0.12
+
+    # Distance to lift the block after grasping, meters
+    lift_height: 0.18
+
+    # Grasp geometry: tool0 parks at block_z + grasp_z_offset. The jaw
+    # pads hang 90..110 mm below tool0, so tool0 at block_z + 0.100 puts
+    # the pads exactly at the block's height (world z 0.750..0.770) while
+    # the wrist stays 100 mm above the table.
+    grasp_z_offset: 0.100
+
+    # Gripper commands for the prismatic parallel jaws (0..0.040 m):
+    # q = 0 open (80 mm gap between pads). Closing onto a 20 mm cube
+    # stalls the jaws at q ~ 0.030 (pads meet the cube at |x| = 0.010),
+    # so the closing command is set just past that to keep pressing it.
+    finger_open: 0.0
+    finger_close: 0.034
+    # A jaw position at/below this after closing means the jaws clamped
+    # the block; closing empty reaches the full 0.034 command (above the
+    # limit), which reads as "not clamped".
+    finger_clamp_limit: 0.032
+
+    # Max grasp attempts per approach and how many times a block that was
+    # dropped mid-carry is re-picked after the remaining blocks.
+    max_pick_attempts: 3
+    max_scan_passes: 3
+    drop_verify_timeout: 4.0
+
+    # Fallback drop point (world x y z), meters. Per-color bucket centers
+    # in the node override this for each block color (red bucket is the
+    # default fallback).
+    drop_position: [0.22, 0.15, 0.87]
+
+    # Scan-first vision: the stick camera looks down at the whole table
+    # and sees all three colours (the table camera only sees the blue
+    # bucket). Block positions come from the camera -> table projection.
+    vision_camera_frame: camera_stick_link
+    vision_extra_frames: '["camera_table_link"]'
+
+    # Vision mode: HSV lower/upper bounds per color (OpenCV H 0-179)
+    vision_colors: '{"red": {"h_low": [0, 120, 80], "h_high": [10, 255, 255]}, "green": {"h_low": [35, 100, 80], "h_high": [85, 255, 255]}, "blue": {"h_low": [95, 120, 80], "h_high": [130, 255, 255]}}'
+
+    # Max time to wait for /world/arm_world/pose/info before aborting (seconds)
+    pose_wait_timeout: 10.0
+
+    # Auto-start the pick sequence when the node starts
+    auto_start: true

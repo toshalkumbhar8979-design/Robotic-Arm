@@ -1,0 +1,74 @@
+Panels:
+  - Class: rviz_common/Displays
+    Name: Displays
+  - Class: rviz_common/Views
+    Name: Views
+  - Class: moveit_ros_visualization/MotionPlanning
+    Name: MotionPlanning
+Visualization Manager:
+  Class: ""
+  Displays:
+    - Class: rviz_default_plugins/Grid
+      Name: Grid
+      Enabled: true
+      Line Style:
+        Line Width: 0.03
+        Value: Lines
+      Cell Size: 0.1
+      Color: 160; 160; 164
+      Plane: XY
+      Normal Cell Count: 0
+      Offset: 0; 0; 0
+      Plane Cell Count: 20
+    - Class: moveit_ros_visualization/MotionPlanning
+      Name: MotionPlanning
+      Enabled: true
+      Robot Description: robot_description
+      Robot Semantic Description: robot_description_semantic
+      Planning Scene Topic: /planning_scene
+      Planned Path Topic: /display_planned_path
+      Planning Group: arm
+      Show Workspace: true
+      Show Robot Visual: true
+      Show Robot Collision: false
+      Show Planning Scene: true
+      Show Planned Path: true
+      Show Goal State: true
+      Query Goal State: true
+      Start State Color: 0; 255; 0
+      Goal State Color: 255; 0; 0
+      Trajectory Topic: /display_planned_path
+      Value: true
+    - Class: rviz_default_plugins/TF
+      Name: TF
+      Enabled: true
+      Frame Timeout: 15
+      Marker Scale: 1
+      Show Arrows: true
+      Show Axes: true
+      Show Names: true
+    - Class: rviz_default_plugins/MarkerArray
+      Name: TrajectoryMarker
+      Enabled: true
+      Topic:
+        Value: /move_group/display_contacts
+      Queue Size: 100
+    - Class: rviz_default_plugins/Image
+      Name: CameraTable
+      Enabled: true
+      Transport Hint: raw
+      Topic:
+        Value: /camera_table/image_raw
+      Queue Size: 2
+Global Options:
+  Background Color: 48; 48; 48
+  Fixed Frame: world
+  Frame Rate: 30
+Views:
+  Current:
+    Class: rviz_default_plugins/Views/Orbit
+    Distance: 2.2
+    Focal Point: 0.3; 0.2; 0.4
+    Name: Current View
+    Pitch: 0.6
+    Yaw: 0.8

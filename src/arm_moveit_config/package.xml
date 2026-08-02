@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>arm_moveit_config</name>
+  <version>0.1.0</version>
+  <description>MoveIt 2 configuration and SRDF for the BabyROS arm_6dof</description>
+  <maintainer email="dev@example.com">BabyROS</maintainer>
+  <license>MIT</license>
+
+  <depend>arm_description</depend>
+  <depend>moveit_ros_move_group</depend>
+  <depend>moveit_kinematics</depend>
+  <depend>moveit_planners_ompl</depend>
+  <depend>moveit_ros_visualization</depend>
+  <depend>moveit_servo</depend>
+  <depend>ros2_controllers</depend>
+  <depend>xacro</depend>
+
+  <exec_depend>ros2launch</exec_depend>
+  <exec_depend>rviz2</exec_depend>
+  <exec_depend>moveit_ros_benchmarks</exec_depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>

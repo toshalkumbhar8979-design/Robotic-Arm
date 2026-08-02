@@ -1,0 +1,25 @@
+teleop_node:
+  ros__parameters:
+    # Logitech F710 (XInput-mode style axis/button numbers, DirectInput
+    # depends on device; adjust via joy --param /joy_node:
+    # axis_linear maps the left stick (axes 0=x, 1=y), enable on LB(4),
+    # turbo on RB(5), angular.yaw on right stick x (axis 2).
+    axis_linear:
+      x: 1
+      y: 0
+    scale_linear:
+      x: 0.4
+      y: 0.4
+      z: 0.4
+    scale_linear_turbo:
+      x: 0.9
+      y: 0.9
+      z: 0.9
+    axis_angular:
+      yaw: 2
+    scale_angular:
+      yaw: 0.6
+    scale_angular_turbo:
+      yaw: 1.2
+    enable_button: 4
+    enable_turbo_button: 5

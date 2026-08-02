@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BabyROS Arm 6-DOF — Digital Twin</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header>
+  <h1>BabyROS Arm <span>6-DOF</span></h1>
+  <p class="tagline">Digital twin — Gazebo Jetty + ROS 2 Lyrical</p>
+  <div id="conn" class="conn unknown">connecting…</div>
+</header>
+
+<main>
+  <section id="viewer-panel">
+    <div id="viewer"></div>
+    <div id="viewer-hint">drag: orbit &nbsp;·&nbsp; wheel: zoom &nbsp;·&nbsp; right-drag: pan</div>
+  </section>
+
+  <aside>
+    <section class="card">
+      <h2>Status</h2>
+      <div id="status" class="status">—</div>
+      <button id="pick-btn" disabled>Start pick &amp; place</button>
+    </section>
+
+    <section class="card">
+      <h2>Joints</h2>
+      <ul id="joints"></ul>
+    </section>
+
+    <section class="card">
+      <h2>Cameras</h2>
+      <figure>
+        <img id="cam-table" alt="table camera">
+        <figcaption>table</figcaption>
+      </figure>
+      <figure>
+        <img id="cam-ee" alt="end-effector camera">
+        <figcaption>end effector</figcaption>
+      </figure>
+    </section>
+  </aside>
+</main>
+
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+    "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/",
+    "urdf-loader": "https://unpkg.com/urdf-loader@0.12.0/dist/urdf-loader.js",
+    "roslib": "https://unpkg.com/roslib@1.3.0/build/roslib.js"
+  }
+}
+</script>
+<script type="module" src="js/dashboard.js"></script>
+</body>
+</html>
