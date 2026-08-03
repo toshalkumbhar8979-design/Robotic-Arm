@@ -125,7 +125,8 @@ class PickNode(Node):
                 ("grasp_z_offset", 0.100),
                 ("drop_position", [0.22, 0.15, DROP_Z]),
                 ("vision_camera_frame", "camera_stick_link"),
-                ("vision_extra_frames", '["camera_table_link"]'),
+                ("vision_extra_frames",
+                 '["camera_table_link", "camera_ee_link"]'),
                 ("vision_colors",
                  '{"red": {"h_low": [0, 120, 80], "h_high": [10, 255, 255]}, '
                  '"green": {"h_low": [35, 100, 80], "h_high": [85, 255, 255]}, '

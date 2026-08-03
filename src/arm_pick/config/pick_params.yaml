@@ -50,8 +50,10 @@ arm_pick:
     # Scan-first vision: the stick camera looks down at the whole table
     # and sees all three colours (the table camera only sees the blue
     # bucket). Block positions come from the camera -> table projection.
+    # The EE camera rides the arm, so it can confirm the block is at the
+    # grasp point when a block is being picked (its pose is resolved via TF).
     vision_camera_frame: camera_stick_link
-    vision_extra_frames: '["camera_table_link"]'
+    vision_extra_frames: '["camera_table_link", "camera_ee_link"]'
 
     # Vision mode: HSV lower/upper bounds per color (OpenCV H 0-179)
     vision_colors: '{"red": {"h_low": [0, 120, 80], "h_high": [10, 255, 255]}, "green": {"h_low": [35, 100, 80], "h_high": [85, 255, 255]}, "blue": {"h_low": [95, 120, 80], "h_high": [130, 255, 255]}}'
