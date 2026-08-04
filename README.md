@@ -1,6 +1,6 @@
 # ROS 2 — 6-DOF Robotic Arm Stack
 
-Full ROS 2 (Lyrical Luth) / Gazebo (Jetty) stack for the BabyROS 6-DOF
+Full ROS 2 (Lyrical Luth) / Gazebo (Jetty) stack for the 6-DOF
 manipulator on Windows via WSL 2: simulated arm with two cameras, MoveIt 2
 motion planning, gamepad teleop (MoveIt Servo), autonomous pick-and-place,
 and a browser-based digital twin.
